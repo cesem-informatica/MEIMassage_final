@@ -1,5 +1,5 @@
 from constants import *
-from alt import local_alternatives, link_alternatives
+from transform.alt import local_alternatives, link_alternatives
 
 
 def variants(MEI_tree, alternates_list, color_we_want):

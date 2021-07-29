@@ -1,23 +1,23 @@
 import sys
 sys.path.insert(0, '..')
 
-from arranger import arranger
-from incipit import orig_clefs, number_of_incipit_measures
-from incipit import obliterate_incipit, renumber_measures
-from responsibility import responsibility
-from longa import longa
-from sources import sources_and_editors
-from variants import variants
-from emendations import emendations
-from supplied import supplied_staves
-from ignored import ignored
-from cut_time import double_cut_time
-from beams import eliminate_bad_beams
-from remove_elements import cleanup_all_elements
-from remove_attributes import cleanup_all_attributes
-from invisible import make_invisible_space
-from copyright import use_restrict
-from ficta import mark_ficta
+from transform.arranger import arranger
+from transform.incipit import orig_clefs, number_of_incipit_measures
+from transform.incipit import obliterate_incipit, renumber_measures
+from transform.responsibility import responsibility
+from transform.longa import longa
+from transform.sources import sources_and_editors
+from transform.variants import variants
+from transform.emendations import emendations
+from transform.supplied import supplied_staves
+from transform.ignored import ignored
+from transform.cut_time import double_cut_time
+from transform.beams import eliminate_bad_beams
+from transform.remove_elements import cleanup_all_elements
+from transform.remove_attributes import cleanup_all_attributes
+from transform.invisible import make_invisible_space
+from transform.copyright import use_restrict
+from transform.ficta import mark_ficta
 
 from constants import *
 from utilities import source_name2NCName

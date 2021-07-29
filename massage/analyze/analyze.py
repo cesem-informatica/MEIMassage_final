@@ -1,5 +1,5 @@
-import editorial
-import staves
+import analyze.editorial
+import analyze.staves
 
 from pymei import documentFromFile
 

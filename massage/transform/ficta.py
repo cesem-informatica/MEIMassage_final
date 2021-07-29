@@ -1,5 +1,5 @@
 from constants import *
-from alt import get_color, color_matches
+from transform.alt import get_color, color_matches
 from pymei import MeiElement
 from utilities import staff_role
 
