@@ -1,23 +1,7 @@
 import sys
 sys.path.insert(0, '..')
 
-from transform.arranger import arranger
-from transform.incipit import orig_clefs, number_of_incipit_measures
-from transform.incipit import obliterate_incipit, renumber_measures
-from transform.responsibility import responsibility
-from transform.longa import longa
-from transform.sources import sources_and_editors
-from transform.variants import variants
-from transform.emendations import emendations
-from transform.supplied import supplied_staves
-from transform.ignored import ignored
-from transform.cut_time import double_cut_time
-from transform.beams import eliminate_bad_beams
-from transform.remove_elements import cleanup_all_elements
-from transform.remove_attributes import cleanup_all_attributes
-from transform.invisible import make_invisible_space
-from transform.copyright import use_restrict
-from transform.ficta import mark_ficta
+from . import arranger, incipit, responsibility, longa, sources, variants, emendations, supplied, ignored, cut_time, beams, remove_elements, remove_attributes, invisible, copyright, ficta
 
 from constants import *
 from utilities import source_name2NCName
@@ -94,53 +78,53 @@ def transform(MEI_doc, data=TransformData()):
     logging.info('color_for_ficta: ' + str(data.color_for_ficta))
     MEI_tree = MEI_doc.getRootElement()
     data.alternates_list = validate_ncnames(data.alternates_list)
-    orig_clefs(MEI_tree, data.alternates_list)
+    incipit.orig_clefs(MEI_tree, data.alternates_list)
     # Important : measure renumbering must be done after the
     # transcription clef info is compiled back into the main scoreDef
     if data.remove_incipit:
-        number_of_measures_to_remove = number_of_incipit_measures(MEI_tree)
+        number_of_measures_to_remove = incipit.number_of_incipit_measures(MEI_tree)
         logging.warning(str(number_of_measures_to_remove) +
                 " measures will be removed from the start of the piece")
-        obliterate_incipit(MEI_tree, number_of_measures_to_remove)
-        renumber_measures(MEI_tree, number_of_measures_to_remove)
+        incipit.obliterate_incipit(MEI_tree, number_of_measures_to_remove)
+        incipit.renumber_measures(MEI_tree, number_of_measures_to_remove)
     if data.arranger_to_editor:
-        arranger(MEI_tree)
+        arranger.arranger(MEI_tree)
     if data.replace_longa:
-        longa(MEI_tree)
+        longa.longa(MEI_tree)
     if data.double_cut_time:
-        double_cut_time(MEI_tree)
+        cut_time.double_cut_time(MEI_tree)
     if data.eliminate_bad_beams:
-        eliminate_bad_beams(MEI_tree)
+        beams.eliminate_bad_beams(MEI_tree)
     if data.make_invisible_space:
-        make_invisible_space(MEI_tree)
+        invisible.make_invisible_space(MEI_tree)
     if data.copyright_text:
-        use_restrict(MEI_tree, data.copyright_text)
+        copyright.use_restrict(MEI_tree, data.copyright_text)
     ## The following not needed because they are handled by mei-filter.js
     # remove_annot_brackets(MEI_tree)
     # remove_metersig(MEI_tree)
-    responsibility(MEI_tree, data.editorial_resp)
+    responsibility.responsibility(MEI_tree, data.editorial_resp)
 
     # Only now should we do the tricky stuff.
     if data.color_for_ficta:
         # Add remove_color=False to leave the ficta note colored
-        mark_ficta(MEI_tree, data.color_for_ficta, data.alternates_list)
-    sources_and_editors(MEI_tree, data.alternates_list)
-    variants(MEI_tree, data.alternates_list, data.color_for_variants)
-    emendations(MEI_tree, data.alternates_list, data.color_for_emendations)
-    supplied_staves(MEI_tree,
+        ficta.mark_ficta(MEI_tree, data.color_for_ficta, data.alternates_list)
+    sources.sources_and_editors(MEI_tree, data.alternates_list)
+    variants.variants(MEI_tree, data.alternates_list, data.color_for_variants)
+    emendations.emendations(MEI_tree, data.alternates_list, data.color_for_emendations)
+    supplied.supplied_staves(MEI_tree,
                     data.alternates_list,
                     [BLANK,
                      RECONSTRUCTION,
                      CONCORDANCE]
                     )
 
-    ignored(MEI_tree, data.alternates_list)
+    ignored.ignored(MEI_tree, data.alternates_list)
 
     # Finally, clean up unwanted elements
 
     if data.cleanup:
-        cleanup_all_elements(MEI_tree)
-        cleanup_all_attributes(MEI_tree)
+        remove_elements.cleanup_all_elements(MEI_tree)
+        remove_attributes.cleanup_all_attributes(MEI_tree)
 
     # To do: remove ties from removed staves
 

@@ -1,5 +1,5 @@
 from constants import *
-from transform.alt import get_color, color_matches
+from . import alt
 from pymei import MeiElement
 from utilities import staff_role
 
@@ -19,7 +19,7 @@ def mark_ficta(MEI_tree, color_we_want, alternates_list, remove_color=True):
             if staff_role(staff_n, alternates_list) != RECONSTRUCTION:
                 notes_in_staff = staff.getDescendantsByName('note')
                 for note in notes_in_staff:
-                    if color_matches(get_color(note), color_we_want):
+                    if alt.color_matches(alt.get_color(note), color_we_want):
                         mark_accid_as_editorial(note)
                         if remove_color:
                             note.removeAttribute('color')
