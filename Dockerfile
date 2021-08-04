@@ -30,6 +30,7 @@ ENV PATH "$HOME/.local/bin:$PATH"
 RUN pip3 install -r requirements.txt
 RUN pip3 install --no-cache-dir notebook
 RUN pip3 install --no-cache-dir jupyterhub
+RUN pip3 install --no-cache-dir jupyterlab
 
 
 
