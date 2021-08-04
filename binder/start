@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export LD_LIBRARY_PATH="$HOME/opt/lib:$LD_LIBRARY_PATH" # for libs
+
+exec "$@"

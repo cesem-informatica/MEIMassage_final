@@ -1,0 +1,21 @@
+#!/bin/bash
+export PATH="$HOME/opt/bin:$PATH" # for binaries
+export LD_LIBRARY_PATH="$HOME/opt/lib:$LD_LIBRARY_PATH" # for libs
+export CPATH="$HOME/opt/include:$CPATH" # for includes
+
+git clone https://github.com/nalves599/libmei &&
+cp -r binder/libmei . &&
+cd libmei &&
+mkdir build && 
+mkdir -p $HOME/opt &&
+cd build && 
+cmake -DCMAKE_INSTALL_PREFIX=$HOME/opt .. && 
+make &&
+make install &&
+ls /usr/lib/x86_64-linux-gnu/ &&
+cd ../python  &&
+python3 setup.py build &&
+python3 setup.py install 
+cd ../.. &&
+rm -rf libmei
+

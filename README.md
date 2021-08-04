@@ -1,6 +1,8 @@
 MEIMassaging
 ============
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/nalves599/MEIMassaging/HEAD?urlpath=/lab/tree/massage)
+
 MEIMassaging is a set of Python files using [libmei](https://github.com/DDMAL/libmei)
 which transform ("massage") the raw MEI files that have been created
 by [sibmei](https://github.com/DuChemin/sibmei) to make them more suitable for
